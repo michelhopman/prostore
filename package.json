@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@auth/core": "^0.37.4",
     "@auth/prisma-adapter": "^2.7.4",
     "@neondatabase/serverless": "^0.10.4",
     "@prisma/adapter-neon": "^6.1.0",
