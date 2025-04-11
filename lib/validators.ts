@@ -23,6 +23,11 @@ export const insertProductSchema = z.object({
   price: currency,
 });
 
+//Schema for updating products
+export const updateProductSchema = insertProductSchema.extend({
+  id: z.string().min(1, "Product id is required"),
+});
+
 //Schema for Sign in users
 export const signInSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -113,4 +118,16 @@ export const paymentResultSchema = z.object({
   status: z.string(),
   email_address: z.string(),
   pricePaid: z.string(),
+});
+
+//Schema for updating user profile
+export const updateProfileSchema = z.object({
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  email: z.string().min(3, "Invalid email address"),
+});
+
+//Schema to update user
+export const updateUserSchema = updateProfileSchema.extend({
+  id: z.string().min(1, "User id is required"),
+  role: z.string().min(1, "User role is required"),
 });

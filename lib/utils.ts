@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { CustomError } from "@/types";
 import { ZodError } from "zod";
 import { Prisma } from "@prisma/client";
+import qs from "query-string";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -65,6 +66,11 @@ export function formatCurrency(amount: number | string | null): string {
   }
 }
 
+const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
+export function formatNumber(number: number): string {
+  return NUMBER_FORMATTER.format(number);
+}
+
 //Shorten UUID
 export function shortenUUID(id: string): string {
   return `..${id.substring(id.length - 6)}`;
@@ -109,3 +115,26 @@ export const formatDateTime = (dateString: Date) => {
     timeOnly: formattedTime,
   };
 };
+
+// form pagiantion links
+export function formUrlQuery({
+  params,
+  key,
+  value,
+}: {
+  params: string;
+  key: string;
+  value: string | null;
+}) {
+  const query = qs.parse(params);
+  query[key] = value;
+
+  const url = qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query,
+    },
+    { skipNull: true }
+  );
+  return url;
+}
