@@ -25,12 +25,12 @@ const AdminProductsPage = async (props: {
   const searchParams = await props.searchParams;
   const page = Number(searchParams.page) || 1;
   const searchText = searchParams.query || "";
-  const catagory = searchParams.catagory || "";
+  const category = searchParams.catagory || "";
 
   const products = await getAllProducts({
     page,
     query: searchText,
-    catagory,
+    category,
   });
 
   return (
